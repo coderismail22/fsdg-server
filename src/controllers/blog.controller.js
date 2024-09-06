@@ -24,10 +24,10 @@ const getBlogById = async (req, res) => {
 
 // Create a new blog
 const createBlog = async (req, res) => {
-  const { title, content, author } = req.body;
+  const { title, content, author, imgUrl } = req.body;
   console.log(req.body);
   try {
-    const newBlog = new Blog({ title, content, author });
+    const newBlog = new Blog({ title, content, author, imgUrl });
     const savedBlog = await newBlog.save();
     res.status(201).json(savedBlog);
   } catch (err) {

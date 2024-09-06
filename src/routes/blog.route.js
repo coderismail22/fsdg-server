@@ -1,8 +1,28 @@
 // routes/blogRoutes.js
 import express from "express";
 import { blogControllers } from "../controllers/blog.controller.js";
+import multer from "multer";
 
 const router = express.Router();
+
+
+// Multer configuration for file storage
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, 'uploads/');
+    },
+    filename: (req, file, cb) => {
+      cb(null, Date.now() + path.extname(file.originalname));
+    },
+  });
+
+const upload = multer({ storage });
+
+
+// Upload image route
+router.post("/api/upload", upload.single("image"), (req, res) => {
+  res.json({ url: `${req.file.path}` });
+});
 
 // Get all blogs
 router.get("/", blogControllers.getAllBlogs);

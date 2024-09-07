@@ -2,9 +2,9 @@ import express from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
-import blogRoutes from "./routes/blog.route.js";
+import blogRoutes from "../routes/blog.route.js"; // Adjust path if necessary
 import cors from "cors";
-import { adminLogin } from "./controllers/admin.controller.js";
+import { adminLogin } from "../controllers/admin.controller.js";
 
 // Load environment variables
 dotenv.config();
@@ -16,7 +16,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(express.static("uploads"));
 
-//configure CORS with specific options
+// Configure CORS with specific options
 app.use(
   cors({
     origin: "http://localhost:5173", // Allow requests from this specific origin
@@ -34,14 +34,9 @@ mongoose
   .then(() => console.log("MongoDB connected!"))
   .catch((err) => console.error(err));
 
-// Use blog routes
+// Use routes
 app.use("/", blogRoutes);
-//Use admin routes
 app.use("/", adminLogin);
 
-
-// Start the server
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+// Export the app as a serverless function
+export default app;

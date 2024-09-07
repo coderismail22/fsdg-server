@@ -30,10 +30,11 @@ mongoose
   .then(() => console.log("MongoDB connected!"))
   .catch((err) => console.error(err));
 
+
+app.use("/api/blogs", blogRoutes);
+app.use("/api/admin", adminRoutes);
 app.use("/", (req, res) => {
   res.send("Server is running");
 });
-app.use("/api/blogs", blogRoutes);
-app.use("/api/admin", adminRoutes);
 
 export default app;

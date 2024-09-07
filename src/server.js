@@ -4,6 +4,7 @@ import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import blogRoutes from "./routes/blog.route.js";
 import cors from "cors";
+import { adminLogin } from "./controllers/admin.controller.js";
 
 // Load environment variables
 dotenv.config();
@@ -19,7 +20,7 @@ app.use(express.static("uploads"));
 app.use(
   cors({
     origin: "http://localhost:5173", // Allow requests from this specific origin
-    methods: "GET, POST, PUT, DELETE,PATCH", // Allow these HTTP methods
+    methods: "GET, POST, PUT, DELETE, PATCH", // Allow these HTTP methods
     allowedHeaders: ["Content-Type", "Authorization"], // Allow these headers
   })
 );
@@ -35,6 +36,9 @@ mongoose
 
 // Use blog routes
 app.use("/", blogRoutes);
+//Use admin routes
+app.use("/", adminLogin);
+
 
 // Start the server
 const PORT = process.env.PORT || 5000;

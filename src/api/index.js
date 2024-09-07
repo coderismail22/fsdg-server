@@ -30,12 +30,10 @@ mongoose
   .then(() => console.log("MongoDB connected!"))
   .catch((err) => console.error(err));
 
+app.use("/", (req, res) => {
+  res.send("Server is running");
+});
 app.use("/api/blogs", blogRoutes);
 app.use("/api/admin", adminRoutes);
-
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
 
 export default app;

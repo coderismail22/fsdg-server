@@ -29,7 +29,7 @@ router.get("/", postControllers.getAllPosts);
 router.get("/:id", postControllers.getPostById);
 
 // Create a new blog
-router.post("/", verifyToken, postControllers.createPost);
+router.post("/", postControllers.createPost);
 
 // Update a blog by ID
 router.patch("/:id", postControllers.updatePost);

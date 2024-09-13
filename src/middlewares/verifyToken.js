@@ -1,18 +1,17 @@
-import jwt from "jsonwebtoken";
-
+// Middleware to protect routes
 const verifyToken = (req, res, next) => {
-  const token = req.headers["authorization"];
+  const token = req.cookies.jwt; // Get the token from cookies
 
   if (!token) {
-    return res.status(401).json({ message: "Unauthorized: No token provided" });
+    return res.status(401).json({ message: "Access denied" });
   }
 
   try {
-    const decoded = jwt.verify(token, "your-secret-key"); // Use the same secret key
-    req.user = decoded; // Attach the decoded user data to the request
-    next(); // Proceed to the next middleware or controller
+    const verified = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = verified; // Add the user data to the request
+    next();
   } catch (error) {
-    return res.status(403).json({ message: "Unauthorized: Invalid token" });
+    res.status(403).json({ message: "Invalid token" });
   }
 };
 

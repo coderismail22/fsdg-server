@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 import { Admin } from "../models/admin.model.js";
 
 // Admin Login Controller
-export const adminLogin = async (req, res) => {
+const adminLogin = async (req, res) => {
   const { email, password } = req.body;
 
   try {
@@ -20,7 +20,7 @@ export const adminLogin = async (req, res) => {
     );
 
     // Store token in HTTP-only cookie
-    res.cookie("jwt", token, {
+    res.cookie("token", token, {
       httpOnly: true, // This cookie cannot be accessed by JavaScript
       secure: process.env.NODE_ENV === "production", // Send over HTTPS only in production
       maxAge: 3600000, // Token expiration time
@@ -33,10 +33,9 @@ export const adminLogin = async (req, res) => {
   }
 };
 
-export const checkAuth = (req, res) => {
-  console.log("🚀 ~ checkAuth ~ hi:");
+const checkAuth = (req, res) => {
   const token = req.cookies?.token || req.headers.authorization?.split(" ")[1];
-
+  console.log("🚀 ~ checkAuth ~ token:", token);
   if (!token) {
     return res.status(401).json({ message: "Not authenticated" });
   }

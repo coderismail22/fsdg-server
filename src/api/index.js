@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import postRoutes from "../routes/post.route.js";
 import adminRoutes from "../routes/admin.route.js";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
@@ -13,6 +14,7 @@ const app = express();
 const PORT = 5000; //remove in production
 
 app.use(bodyParser.json());
+app.use(cookieParser());
 // app.use(express.static("uploads"));
 
 app.use(

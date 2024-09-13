@@ -42,6 +42,7 @@ const createPost = async (req, res) => {
 // Update an existing post by ID
 const updatePost = async (req, res) => {
   const { title, label, imgUrl, content, author } = req.body;
+  console.log("🚀 ~ updatePost ~ hi", title, label, imgUrl, content, author);
 
   try {
     const updatedPost = await Post.findByIdAndUpdate(
@@ -49,6 +50,8 @@ const updatePost = async (req, res) => {
       { title, label, imgUrl, content, author },
       { new: true }
     );
+    console.log("🚀 ~ updatePost ~ updatedPost:", updatedPost);
+
     if (!updatedPost) return res.status(404).json({ error: "Post not found" });
     res.status(200).json(updatedPost);
   } catch (err) {

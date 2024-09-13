@@ -1,25 +1,21 @@
+import jwt from "jsonwebtoken";
 import { Admin } from "../models/admin.model.js";
 
-// Admin Login Controller (without hashing)
 export const adminLogin = async (req, res) => {
   const { email, password } = req.body;
 
   try {
-    // Find admin by email
     const admin = await Admin.findOne({ email });
 
-    // Check if admin exists
-    if (!admin) {
+    if (!admin || admin.password !== password) {
       return res.status(400).json({ message: "Invalid email or password" });
     }
 
-    // Compare plain text password (since you are not using hashing)
-    if (admin.password !== password) {
-      return res.status(400).json({ message: "Invalid email or password" });
-    }
+    // Generate a JWT token (Make sure to replace 'your-secret-key' with an actual secret)
+    const token = jwt.sign({ id: admin._id, role: admin.role }, 'your-secret-key', { expiresIn: '1h' });
 
-    // On successful login
-    res.status(200).json({ message: "Login successful", role: admin.role });
+    // Send token to the client
+    res.status(200).json({ message: "Login successful", token });
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
   }

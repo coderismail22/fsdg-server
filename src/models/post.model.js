@@ -1,10 +1,16 @@
 // models/Blog.js
 import mongoose from "mongoose";
 
-const blogSchema = new mongoose.Schema({
+const postSchema = new mongoose.Schema({
+  label: {
+    type: "string",
+  },
   title: {
     type: String,
     required: true,
+  },
+  imgUrl: {
+    type: String,
   },
   content: {
     type: String,
@@ -14,13 +20,10 @@ const blogSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  imgUrl: {
-    type: String,
-  },
   createdAt: {
     type: Date,
     default: Date.now,
   },
 });
 
-export const Blog = mongoose.model("Blog", blogSchema);
+export const Post = mongoose.model("Post", postSchema);

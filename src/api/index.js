@@ -11,11 +11,9 @@ import cookieParser from "cookie-parser";
 dotenv.config();
 
 const app = express();
-const PORT = 5000; //remove in production
 
 app.use(bodyParser.json());
 app.use(cookieParser());
-// app.use(express.static("uploads"));
 
 app.use(
   cors({
@@ -37,16 +35,12 @@ mongoose
 app.use("/api/posts", postRoutes);
 app.use("/api/admin", adminRoutes);
 
-app.use((req, res) => {
-  res.status(404).send({ message: "Not Found" });
-});
 app.use("/", (req, res) => {
   res.send("Server is running");
 });
 
-//remove in production
-app.listen(PORT, () => {
-  console.log(`Server is running on ${PORT}`);
+app.use((req, res) => {
+  res.status(404).send({ message: "Not Found" });
 });
 
 export default app;

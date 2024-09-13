@@ -15,9 +15,20 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cookieParser());
 
+const allowedOrigins = [
+  "http://localhost:5173", // Local development,
+  "https://fsdgbd.netlify.app", // Deployed frontend URL
+];
+
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: (origin, callback) => {
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("The origin is not allowed by CORS"));
+      }
+    },
     methods: "GET, POST, PUT, DELETE, PATCH",
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,

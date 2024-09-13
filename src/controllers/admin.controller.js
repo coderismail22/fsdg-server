@@ -4,7 +4,7 @@ import { Admin } from "../models/admin.model.js";
 // Admin Login Controller
 const adminLogin = async (req, res) => {
   const { email, password } = req.body;
-
+  
   try {
     const admin = await Admin.findOne({ email });
 
@@ -24,7 +24,7 @@ const adminLogin = async (req, res) => {
       httpOnly: true, // This cookie cannot be accessed by JavaScript
       secure: process.env.NODE_ENV === "production", // Send over HTTPS only in production
       maxAge: 3600000, // Token expiration time
-      sameSite: "Strict", // Protect from CSRF attacks
+      sameSite: "None", // Protect from CSRF attacks
     });
 
     res.status(200).json({ message: "Login successful" });
@@ -35,7 +35,6 @@ const adminLogin = async (req, res) => {
 
 const checkAuth = (req, res) => {
   const token = req.cookies?.token || req.headers.authorization?.split(" ")[1];
-  console.log("🚀 ~ checkAuth ~ token:", token);
   if (!token) {
     return res.status(401).json({ message: "Not authenticated" });
   }

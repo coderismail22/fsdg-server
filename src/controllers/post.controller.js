@@ -24,8 +24,7 @@ const getPostById = async (req, res) => {
 
 // Create a new post
 const createPost = async (req, res) => {
-  const author = "Firoj Alam";
-  const { label, title, content, imgUrl } = req.body;
+  const { author, label, title, content, imgUrl } = req.body;
   console.log(req.body);
   try {
     const newPost = new Post({ label, title, content, author, imgUrl });

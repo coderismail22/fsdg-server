@@ -4,7 +4,7 @@ import { Admin } from "../models/admin.model.js";
 // Admin Login Controller
 const adminLogin = async (req, res) => {
   const { email, password } = req.body;
-  
+
   try {
     const admin = await Admin.findOne({ email });
 

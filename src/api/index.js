@@ -9,7 +9,6 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 
 dotenv.config();
-
 const app = express();
 
 app.use(bodyParser.json());
@@ -17,7 +16,9 @@ app.use(cookieParser());
 
 const allowedOrigins = [
   "http://localhost:5173", // Local development,
-  "https://fsdgbd.netlify.app", // Deployed frontend URL
+  "https://fsdgbd2.netlify.app/",
+  "https://fsdgbd.netlify.app",
+  "https://www.fsdgbd.org", // Deployed frontend URL
 ];
 
 app.use(

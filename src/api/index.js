@@ -16,6 +16,7 @@ app.use(cookieParser());
 
 const allowedOrigins = [
   "http://localhost:5173", // Local development,
+  "http://localhost:3000", // Local development,
   "https://fsdgbd2.netlify.app/",
   "https://fsdgbd.netlify.app",
   "https://www.fsdgbd.org", // Deployed frontend URL

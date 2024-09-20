@@ -17,7 +17,7 @@ app.use(cookieParser());
 const allowedOrigins = [
   "http://localhost:5173", // Local development,
   "http://localhost:3000", // Local development,
-  "https://fsdgbd2.netlify.app/",
+  "https://fsdgbd2.netlify.app",
   "https://fsdgbd.netlify.app",
   "https://www.fsdgbd.org", // Deployed frontend URL
 ];
@@ -45,12 +45,12 @@ mongoose
   .then(() => console.log("MongoDB connected!"))
   .catch((err) => console.error(err));
 
-app.use("/api/posts", postRoutes);
-app.use("/api/admin", adminRoutes);
-
-app.use("/", (req, res) => {
-  res.send("Server is running");
-});
+  app.use("/api/posts", postRoutes);
+  app.use("/api/admin", adminRoutes);
+  
+  app.use("/", (req, res) => {
+    res.send("Server is running");
+  });
 
 app.use((req, res) => {
   res.status(404).send({ message: "Not Found" });

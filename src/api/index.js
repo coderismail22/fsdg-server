@@ -14,23 +14,27 @@ const app = express();
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-const allowedOrigins = [
-  "http://localhost:5173", // Local development,
-  "http://localhost:3000", // Local development,
-  "https://fsdgbd2.netlify.app",
-  "https://fsdgbd.netlify.app",
-  "https://www.fsdgbd.org", // Deployed frontend URL
-];
+// const allowedOrigins = [
+//   "http://localhost:5173", // Local development,
+//   "http://localhost:3000", // Local development,
+//   "http://localhost:5000", // Local development,
+//   "https://fsdgbd2.netlify.app",
+//   "https://fsdgbd.netlify.app",
+//   "https://www.fsdgbd.org", // Deployed frontend URL
+// ];
+
+// app.use(
+//   cors({
+//     origin: allowedOrigins,
+//     methods: "GET, POST, PUT, DELETE, PATCH",
+//     allowedHeaders: ["Content-Type", "Authorization"],
+//     credentials: true,
+//   })
+// );
 
 app.use(
   cors({
-    origin: (origin, callback) => {
-      if (allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("The origin is not allowed by CORS"));
-      }
-    },
+    origin: true, // Allow all origins
     methods: "GET, POST, PUT, DELETE, PATCH",
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
@@ -45,15 +49,15 @@ mongoose
   .then(() => console.log("MongoDB connected!"))
   .catch((err) => console.error(err));
 
-  app.use("/api/posts", postRoutes);
-  app.use("/api/admin", adminRoutes);
-  
-  app.use("/", (req, res) => {
-    res.send("Server is running");
-  });
+app.use("/api/posts", postRoutes);
+app.use("/api/admin", adminRoutes);
 
 app.use((req, res) => {
   res.status(404).send({ message: "Not Found" });
+});
+
+app.listen(process.env.PORT, () => {
+  console.log(`Server running on port ${process.env.PORT}`);
 });
 
 export default app;

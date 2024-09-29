@@ -12,22 +12,24 @@ router.post("/want-to-join-email", async (req, res) => {
 
   // Setup Nodemailer transport using shared hosting SMTP
   const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com", // e.g., smtp.example.com
-    port: 587, // or 465 for secure
-    secure: process.env.NODE_ENV === "production", // true for 465, false for other ports
+    host: "fsdgbd.org", // e.g., smtp.example.com
+    port: 465, // or 465 for secure
+    secure: true, // true for 465, false for other ports
     auth: {
-      user: "xordiboy@gmail.com",
-      pass: "aesc tcrj ushj gjlc",
+      user: "info@fsdgbd.org",
+      pass: "B@ngladesh1971",
     },
+    logger: true, // Add this for logging
+    debug: true, // Add this to enable debugging
     tls: {
       rejectUnauthorized: false,
     },
   });
 
   const mailOptions = {
-    from: `${email}`, // sender address
-    to: "ismailmdhossain2@gmail.com", // replace with the recipient's email
-    subject: "For Getting Involved With FSDG",
+    from: `info@fsdgbd.org`, // sender address
+    to: "info@fsdgbd.org", // replace with the recipient's email
+    subject: "Join With FSDG",
     text: `Name: ${name}\nCountry: ${country}\nOccupation: ${occupation}\nEmail: ${email}\nContact: ${contact}`,
     html: `<p>Name: ${name}</p><p>Country: ${country}</p><p>Occupation: ${occupation}</p><p>Email: ${email}</p><p>Contact: ${contact}</p>`,
   };

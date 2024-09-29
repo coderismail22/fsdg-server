@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import postRoutes from "../routes/post.route.js";
 import adminRoutes from "../routes/admin.route.js";
+import emailRoutes from "../routes/email.route.js";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
@@ -51,9 +52,10 @@ mongoose
 
 app.use("/api/posts", postRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/sendmail", emailRoutes);
 
 app.use((req, res) => {
-  res.status(404).send({ message: "Not Found" });
+  res.status(404).send({ message: "API Not Found" });
 });
 
 app.listen(process.env.PORT, () => {

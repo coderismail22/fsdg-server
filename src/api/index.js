@@ -50,10 +50,9 @@ mongoose
   .then(() => console.log("MongoDB connected!"))
   .catch((err) => console.error(err));
 
-  app.use("/",()=>{
-    "Server is running"
-  })
-
+app.get("/", (req, res) => {
+  res.status(200).json({ message: "Welcome to FSDG Server !!!" });
+});
 
 app.use("/api/posts", postRoutes);
 app.use("/api/admin", adminRoutes);
